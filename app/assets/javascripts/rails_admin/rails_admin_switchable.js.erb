@@ -1,0 +1,18 @@
+
+jQuery(function(){
+
+  jQuery(".switchable_root_link").addClass("dropdown");
+
+  var items = '';
+  <% Group.all.each do |g| %>
+    items += '<li data-id="<%= g.id %>"><a href="/admin/switchable?set_id=<%= g.id %>"><%= g.to_s %></a></li>'
+  <% end %>
+
+  jQuery(".switchable_root_link").html('<a href="#" class="dropdown-toggle" data-toggle="dropdown">Gruppe wechseln <b class="caret"></b></a><ul class="dropdown-menu">' + items + '</ul>');
+  jQuery(".switchable_root_link li").each(function(){
+    if(jQuery(this).attr("data-id") == window.current_user.group_id) {
+      jQuery(this).addClass("active");
+    }
+  });
+
+});
